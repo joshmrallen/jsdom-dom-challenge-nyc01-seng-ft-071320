@@ -32,45 +32,67 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function newlikeLi(){
+        console.log('app is creating a new like')
         let li = document.createElement('li');
         li.dataset.num = number;
         li.dataset.likes = 1;
         li.innerText = `Number ${number} has been liked ${li.dataset.likes} times.`
         likeUL.append(li);
+        console.log('new like was added to DOM')
+    }
+
+    function showLike(){
+        //we check that only new likes are logegd 
     }
 
     function liker() {
-        //create a new element
-        //change content fo that element to: "Number ${number} has been liked ${likes} times."
-        
-
-        // if !!document.querySelector(`[data-num = ${number}]`){
+        console.log(likeList)
         if(likeList.length > 0) {
-            for(const like in likeList){
-                let num = parseInt(like.dataset.num, 10) // change into integer to compare with number
-                if (num === number) {
-                    likes = parseInt(like.dataset.likes, 10);
-                    likes++;
-                    like.dataset.likes = likes;
-                    like.innerText = `Number ${like.dataset.num} has been liked ${like.dataset.likes} times.`
-                } else {
-                    newlikeLi();
-                }
-            }
-        } else {
-            newlikeLi();
+            console.log('jump to the need to create + compare')
+            let li = document.createElement('li');
+            // li.dataset.num = number;
+            li.dataset.likes = 1;
+            // li.innerText = `Number ${li.dataset.num} has been liked ${li.dataset.likes} times.`
+            console.log('56: new li created but not compared')
+            console.dir(li)
 
-
-
-            // if (like.dataset.num === number) {
-            //         like.dataset.likes = parseInt(like.dataset.likes, 10);
-            //         like.dataset.likes++;
-            //         like.innerText = `Number ${like.dataset.num} has been liked ${like.dataset.likes} times.`
-            //     }
             
-        }
-        
+            if(li.matches(`[data-num="${number}"]`)){
+                console.log('just compared, found them equal')
+                let updatedLike = document.querySelector(`[data-num="${number}"]`)
+                let newLikes = parseInt(updatedLike.dataset.likes, 10) 
+                newLikes++
+                updatedLike.dataset.likes = newLikes
+                console.log('about to update existing like with +1')
+                updatedLike.innerText = `Number ${updatedLike.dataset.num} has been liked ${updatedLike.dataset.likes} times.`
+            } else {
+                console.log('created a new like, already compared, doesnt already exist')
+                li.dataset.num = number;
+                 li.innerText = `Number ${li.dataset.num} has been liked ${li.dataset.likes} times.`
+                likeUL.append(li)
+            }
+            
+        } else {
+            console.log('app thinks there no likes')
+            newlikeLi();
+        } 
     }
+            // for(const like of likeList){
+            //     console.log('about to compare')
+            //     console.log(like.dataset.num) 
+            //     console.log(li.dataset.num) 
+            //    if(like.dataset.num === li.dataset.num){
+            //         console.log('liked the same thing twice')
+            //         let numLike = parseInt(like.dataset.likes, 10) 
+            //         numLike++
+            //         like.dataset.likes = numLike
+            //         console.log(like.dataset.likes)
+            //         like.innerText = `Number ${like.dataset.num} has been liked ${like.dataset.likes} times.`
+            //    } else {
+            //         console.log('69: like a new thing, but not the first thing')
+            //         likeUL.append(li)
+            //    };
+            // }
     
 
 
